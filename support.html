@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — SpinSteady</title>
+<meta name="description" content="SpinSteady support and frequently asked questions.">
+<link rel="icon" href="assets/icon-256.png">
+<style>
+  :root { --bg:#fff; --bg-card:#fff; --text:#10131a; --text-soft:#59606b; --border:#e6e8ec; --tint:#0f6d7f; }
+  @media (prefers-color-scheme: dark){ :root { --bg:#0b0f14; --bg-card:#141b23; --text:#eef2f6; --text-soft:#9aa4b0; --border:#222b35; --tint:#6fd6c9; } }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; color:var(--text); background:var(--bg); line-height:1.7; }
+  .wrap { max-width:720px; margin:0 auto; padding:32px 24px 80px; }
+  a { color:var(--tint); }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:18px; margin-bottom:32px; }
+  .brand img { width:26px; height:26px; border-radius:7px; }
+  h1 { font-size:30px; letter-spacing:-.02em; }
+  p, li { color:var(--text-soft); }
+  .contact { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:20px 22px; margin:24px 0 8px; }
+  .contact b { color:var(--text); }
+  details { border:1px solid var(--border); border-radius:12px; padding:2px 18px; margin-top:12px; background:var(--bg-card); }
+  summary { cursor:pointer; font-weight:600; padding:14px 0; list-style:none; color:var(--text); }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; float:right; color:var(--text-soft); }
+  details[open] summary::after { content:"–"; }
+  details p { margin:0 0 16px; }
+  hr { border:none; border-top:1px solid var(--border); margin:40px 0; }
+  .muted { color:var(--text-soft); font-size:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icon.png" alt="">SpinSteady</a>
+  <h1>Support</h1>
+
+  <div class="contact">
+    <p style="margin:0"><b>Need help?</b> Email <a href="mailto:support@spinsteady.com">support@spinsteady.com</a> — please include your macOS version and drive model so we can help faster. (The app's <b>Send Feedback…</b> menu item fills this in for you.)</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+
+  <details open>
+    <summary>My drive still spins down after adding it. What now?</summary>
+    <p>A few enclosures reset their idle timer only on <em>writes</em>, not reads. Open the drive's settings in SpinSteady and switch it to <b>Write mode</b>, or shorten the interval. If SpinSteady detected the sleep, it will offer both fixes in a notification.</p>
+  </details>
+
+  <details>
+    <summary>What is the ".spinsteady" folder on my drive?</summary>
+    <p>It's a single hidden folder containing one tiny keep-alive file — the only thing SpinSteady writes to your drive. Remove the drive from SpinSteady and you can safely delete the folder.</p>
+  </details>
+
+  <details>
+    <summary>Does SpinSteady keep my whole Mac awake?</summary>
+    <p>No. It keeps only the drives you add awake. Your display and your Mac still sleep normally.</p>
+  </details>
+
+  <details>
+    <summary>Will keeping the drive awake damage it?</summary>
+    <p>The default read-only keep-alive adds no write wear. Continuous gentle spinning is generally gentler on a consumer drive than repeated spin-up/spin-down cycles. Use write mode only if your enclosure requires it.</p>
+  </details>
+
+  <details>
+    <summary>How do I get a refund?</summary>
+    <p>The one-time unlock is an App Store purchase, so refunds go through Apple at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p>
+  </details>
+
+  <details>
+    <summary>Which drives and Macs are supported?</summary>
+    <p>Any external USB or Thunderbolt drive on macOS 14 (Sonoma) or later. SpinSteady works with HDDs and SSDs; spin-down detection applies to spinning (or unknown-type) drives.</p>
+  </details>
+
+  <hr>
+  <p class="muted"><a href="index.html">← Back to SpinSteady</a> · <a href="privacy.html">Privacy</a></p>
+</div>
+</body>
+</html>

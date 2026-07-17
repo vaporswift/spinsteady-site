@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpinSteady — Keep external drives awake on your Mac</title>
+<meta name="description" content="Stop your external hard drive from spinning down on macOS. SpinSteady keeps your drives ready without keeping your Mac awake. Free for one drive.">
+<meta property="og:title" content="SpinSteady — Keep external drives awake">
+<meta property="og:description" content="Stop your external hard drive from spinning down on macOS — without keeping your Mac awake.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spinsteady.com">
+<link rel="icon" href="assets/icon-256.png">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f5f6f8;
+    --bg-card: #ffffff;
+    --text: #10131a;
+    --text-soft: #59606b;
+    --border: #e6e8ec;
+    --tint: #1f7a8c;
+    --tint-strong: #0f6d7f;
+    --accent: #2e8b9a;
+    --green: #2fa36b;
+    --shadow: 0 1px 3px rgba(16,19,26,.06), 0 12px 32px rgba(16,19,26,.06);
+    --radius: 16px;
+    --maxw: 1080px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b0f14;
+      --bg-soft: #11161d;
+      --bg-card: #141b23;
+      --text: #eef2f6;
+      --text-soft: #9aa4b0;
+      --border: #222b35;
+      --tint: #58c7d8;
+      --tint-strong: #6fd6c9;
+      --accent: #6fd6c9;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--tint); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: saturate(160%) blur(14px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; gap: 20px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+  .brand img { width: 28px; height: 28px; border-radius: 7px; }
+  .nav .spacer { flex: 1; }
+  .nav a.navlink { color: var(--text-soft); font-size: 15px; }
+  .nav a.navlink:hover { color: var(--text); text-decoration: none; }
+  @media (max-width: 720px){ .nav a.navlink { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--tint-strong); color: #fff;
+    padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    border: none; cursor: pointer;
+  }
+  .btn:hover { text-decoration: none; opacity: .92; }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+
+  /* Hero */
+  .hero { text-align: center; padding: 84px 0 40px; }
+  .hero img.icon { width: 108px; height: 108px; border-radius: 24px; box-shadow: var(--shadow); }
+  .hero h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.05; letter-spacing: -.02em; margin: 28px 0 16px; }
+  .hero p.sub { font-size: clamp(17px, 2.4vw, 21px); color: var(--text-soft); max-width: 660px; margin: 0 auto 28px; }
+  .cta-row { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #000; color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 600;
+  }
+  @media (prefers-color-scheme: dark){ .badge { background: #fff; color: #000; } }
+  .badge small { display: block; font-size: 10px; font-weight: 500; opacity: .8; line-height: 1; }
+  .badge .big { font-size: 19px; line-height: 1.1; }
+  .free-note { color: var(--text-soft); font-size: 14px; margin-top: 14px; }
+
+  /* Section scaffolding */
+  section { padding: 64px 0; }
+  section.soft { background: var(--bg-soft); }
+  .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 700; color: var(--tint); }
+  h2 { font-size: clamp(26px, 4vw, 38px); letter-spacing: -.02em; margin: 10px 0 14px; }
+  .lead { color: var(--text-soft); font-size: 18px; max-width: 680px; }
+
+  /* Problem callout */
+  .callout {
+    margin-top: 28px; padding: 22px 24px; border-left: 3px solid var(--accent);
+    background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow);
+    color: var(--text-soft);
+  }
+  .callout b { color: var(--text); }
+
+  /* Feature grid */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 36px; }
+  @media (max-width: 720px){ .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; box-shadow: var(--shadow);
+  }
+  .card .ic { font-size: 26px; }
+  .card h3 { margin: 12px 0 8px; font-size: 19px; }
+  .card p { margin: 0; color: var(--text-soft); font-size: 15px; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; counter-reset: s; }
+  @media (max-width: 720px){ .steps { grid-template-columns: 1fr; } }
+  .step { position: relative; padding-top: 8px; }
+  .step .n {
+    width: 34px; height: 34px; border-radius: 999px; background: var(--tint-strong); color: #fff;
+    display: grid; place-items: center; font-weight: 700; margin-bottom: 12px;
+  }
+  .step h3 { margin: 0 0 6px; font-size: 18px; }
+  .step p { margin: 0; color: var(--text-soft); font-size: 15px; }
+
+  /* Pricing */
+  .price-wrap { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin-top: 36px; }
+  @media (max-width: 720px){ .price-wrap { grid-template-columns: 1fr; } }
+  .price {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; box-shadow: var(--shadow);
+  }
+  .price.featured { border-color: var(--accent); }
+  .price .amt { font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+  .price .amt small { font-size: 15px; font-weight: 500; color: var(--text-soft); }
+  .price ul { list-style: none; padding: 0; margin: 16px 0 0; }
+  .price li { padding: 6px 0 6px 26px; position: relative; color: var(--text-soft); }
+  .price li::before { content: "✓"; color: var(--green); position: absolute; left: 0; font-weight: 700; }
+  .price .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--tint); text-transform: uppercase; letter-spacing: .06em; }
+
+  /* FAQ */
+  details {
+    border: 1px solid var(--border); border-radius: 12px; padding: 4px 18px; margin-top: 12px;
+    background: var(--bg-card);
+  }
+  details summary { cursor: pointer; font-weight: 600; padding: 14px 0; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: "+"; float: right; color: var(--text-soft); font-weight: 400; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--text-soft); margin: 0 0 16px; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 40px 0; color: var(--text-soft); font-size: 14px; }
+  .foot-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .foot-row .spacer { flex: 1; }
+  .disclaimer { margin-top: 20px; font-size: 12.5px; color: var(--text-soft); max-width: 720px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <span class="brand"><img src="assets/icon.png" alt="SpinSteady icon">SpinSteady</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="#how">How it works</a>
+    <a class="navlink" href="#pricing">Pricing</a>
+    <a class="navlink" href="#faq">FAQ</a>
+    <!-- L6: replace # with the Mac App Store product URL -->
+    <a class="btn" href="#download">Download</a>
+  </div>
+</header>
+
+<div class="hero wrap">
+  <img class="icon" src="assets/icon.png" alt="SpinSteady app icon">
+  <h1>Keep your external drives awake.</h1>
+  <p class="sub">Your external hard drive keeps spinning down every few minutes — then stalls your Mac when it wakes. SpinSteady stops it, and shows you it's working. Without keeping your Mac awake.</p>
+  <div class="cta-row">
+    <!-- L6: replace href with the Mac App Store URL, or swap for Apple's official "Download on the Mac App Store" badge SVG -->
+    <a class="badge" id="download" href="#">
+      <span></span>
+      <span><small>Download on the</small><span class="big">Mac App Store</span></span>
+    </a>
+  </div>
+  <div class="free-note">Free for one drive · macOS 14 or later</div>
+</div>
+
+<section class="soft">
+  <div class="wrap">
+    <div class="eyebrow">The problem</div>
+    <h2>macOS can't keep your drives awake — and won't tell you why.</h2>
+    <p class="lead">You unchecked "Put hard disks to sleep." You tried the Terminal commands. The drive <em>still</em> spins down. Here's the part Apple leaves out:</p>
+    <div class="callout">
+      Most external enclosures — WD, Seagate, LaCie, and cheaper cases — run their <b>own idle timer in firmware</b> that ignores your Mac's power settings entirely. That's why the checkbox and the forum tricks never stick. The only reliable fix is to keep the drive gently busy so its timer never fires. That's exactly what SpinSteady does.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Why SpinSteady</div>
+    <h2>Purpose-built for the drive that won't stay awake.</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ic">💤</div>
+        <h3>Your Mac still sleeps</h3>
+        <p>Other tools keep your whole computer awake. SpinSteady keeps the <em>drive</em> awake — close the lid, let the Mac sleep, your drives stay ready.</p>
+      </div>
+      <div class="card">
+        <div class="ic">✅</div>
+        <h3>It proves it's working</h3>
+        <p>SpinSteady watches every keep-alive and catches a stubborn drive that slips through and sleeps anyway — then offers a one-tap fix. Nothing else does this.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🪶</div>
+        <h3>Gentle by default</h3>
+        <p>A read-only keep-alive adds zero write wear and works even on read-only volumes like Time Machine. One tap switches to write mode for the rare enclosure that needs it.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔒</div>
+        <h3>Private by design</h3>
+        <p>No networking code at all. Nothing about you or your drives ever leaves your Mac. Nothing to collect, nothing to leak.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>Set it once. Forget it.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Add your drive</h3>
+        <p>Pick any external drive from the menu bar. SpinSteady keeps one tiny hidden file on it — nothing else is touched.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>It stays awake</h3>
+        <p>A gentle touch on a timer keeps the drive's idle timer from ever firing. Survives reboots, unplugs, renames, and sleep/wake.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>You see it working</h3>
+        <p>A green status per drive, live check timing, and a heads-up if a drive ever sleeps anyway — with a one-tap fix.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <h2>Free for one drive. One-time unlock for the rest.</h2>
+    <p class="lead">No subscription. Ever.</p>
+    <div class="price-wrap">
+      <div class="price">
+        <span class="tag">Free</span>
+        <div class="amt">$0</div>
+        <ul>
+          <li>Keep one external drive awake</li>
+          <li>Spin-down detection &amp; alerts</li>
+          <li>Read or write keep-alive modes</li>
+          <li>All future updates</li>
+        </ul>
+      </div>
+      <div class="price featured">
+        <span class="tag">One-time</span>
+        <div class="amt">$1.99 <small>once</small></div>
+        <ul>
+          <li>Everything in Free</li>
+          <li>Keep <b>unlimited</b> drives awake</li>
+          <li>No subscription, no renewal</li>
+          <li>All future updates included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>Good questions.</h2>
+
+    <details>
+      <summary>Why does my drive keep spinning down even with macOS set to never sleep disks?</summary>
+      <p>Because most external enclosures ignore that setting. They run their own idle timer in the drive or the USB/Thunderbolt bridge firmware, and macOS has no supported way to change it. SpinSteady works around it by keeping the drive gently busy so its timer never reaches zero.</p>
+    </details>
+
+    <details>
+      <summary>Does this keep my whole Mac awake?</summary>
+      <p>No — and that's the point. SpinSteady keeps only the drives you choose awake. Your display sleeps, your Mac sleeps, your battery is unaffected.</p>
+    </details>
+
+    <details>
+      <summary>What's the hidden ".spinsteady" folder on my drive?</summary>
+      <p>It's a single small folder holding one tiny keep-alive file — the thing SpinSteady touches on a timer. That's the entire footprint. Remove the drive from SpinSteady and you can delete it.</p>
+    </details>
+
+    <details>
+      <summary>Will this wear out my drive?</summary>
+      <p>By default SpinSteady uses a read-only keep-alive, which adds no write wear at all. Continuous gentle spinning is generally easier on a consumer drive than the repeated spin-up/spin-down cycles you're getting now. A write mode is available for the few enclosures that only respond to writes.</p>
+    </details>
+
+    <details>
+      <summary>Does it collect any data?</summary>
+      <p>No. SpinSteady contains no networking code. Nothing is collected, nothing is transmitted, there are no analytics.</p>
+    </details>
+
+    <details>
+      <summary>How do refunds work?</summary>
+      <p>The unlock is a one-time App Store purchase, so refunds are handled by Apple through <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span class="brand"><img src="assets/icon.png" alt="" style="width:22px;height:22px;border-radius:6px;vertical-align:middle"> SpinSteady</span>
+      <span class="spacer"></span>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="mailto:support@spinsteady.com">Contact</a>
+    </div>
+    <p class="disclaimer">
+      SpinSteady is an independent app and is not affiliated with, endorsed by, or sponsored by Apple, Western Digital, Seagate, LaCie, or any drive manufacturer. Keeping a drive awake increases its continuous spin time; SpinSteady is provided without warranty for data or hardware. © 2026 SpinSteady.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
