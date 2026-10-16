@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SpinSteady — Keep external drives awake on your Mac</title>
-<meta name="description" content="Stop your external hard drive from spinning down on macOS. SpinSteady keeps your drives ready without keeping your Mac awake. Free for one drive.">
+<meta name="description" content="Keep your external hard drives from spinning down on macOS without keeping your Mac awake. Tells you if a drive slept anyway. Free for one drive.">
 <meta property="og:title" content="SpinSteady — Keep external drives awake">
-<meta property="og:description" content="Stop your external hard drive from spinning down on macOS — without keeping your Mac awake.">
+<meta property="og:description" content="Keep your external hard drives from spinning down on macOS, without keeping your Mac awake.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://spinsteady.com">
 <link rel="icon" href="assets/icon-256.png">
@@ -180,7 +180,7 @@
 <div class="hero wrap">
   <img class="icon" src="assets/icon.png" alt="SpinSteady app icon">
   <h1>Keep your external drives awake.</h1>
-  <p class="sub">Your external hard drive keeps spinning down every few minutes — then stalls your Mac when it wakes. SpinSteady stops it, and shows you it's working. Without keeping your Mac awake.</p>
+  <p class="sub">Your external hard drive spins down every few minutes, then stalls your Mac while it spins back up. SpinSteady keeps the drives you choose ready while you work, without keeping your Mac awake, and tells you if one slept anyway.</p>
   <div class="cta-row">
     <!-- L6: replace href with the Mac App Store URL, or swap for Apple's official "Download on the Mac App Store" badge SVG -->
     <a class="badge" id="download" href="#">
@@ -194,10 +194,10 @@
 <section class="soft">
   <div class="wrap">
     <div class="eyebrow">The problem</div>
-    <h2>macOS can't keep your drives awake — and won't tell you why.</h2>
+    <h2>Why the usual fixes don't stick.</h2>
     <p class="lead">You unchecked "Put hard disks to sleep." You tried the Terminal commands. The drive <em>still</em> spins down. Here's the part Apple leaves out:</p>
     <div class="callout">
-      Most external enclosures — WD, Seagate, LaCie, and cheaper cases — run their <b>own idle timer in firmware</b> that ignores your Mac's power settings entirely. That's why the checkbox and the forum tricks never stick. The only reliable fix is to keep the drive gently busy so its timer never fires. That's exactly what SpinSteady does.
+      Many external enclosures, including the WD and Seagate drives I tested on, run their <b>own idle timer in firmware</b> that ignores your Mac's power settings. That's why the checkbox and the Terminal commands often don't help. What does work is keeping the drive lightly busy so its timer doesn't run out. That's what SpinSteady does.
     </div>
   </div>
 </section>
@@ -205,27 +205,23 @@
 <section>
   <div class="wrap">
     <div class="eyebrow">Why SpinSteady</div>
-    <h2>Purpose-built for the drive that won't stay awake.</h2>
+    <h2>Built for the drive that won't stay awake.</h2>
     <div class="grid">
       <div class="card">
-        <div class="ic">💤</div>
         <h3>Your Mac still sleeps</h3>
-        <p>Other tools keep your whole computer awake. SpinSteady keeps the <em>drive</em> awake — close the lid, let the Mac sleep, your drives stay ready.</p>
+        <p>Keep-your-Mac-awake apps stop your whole computer from sleeping. SpinSteady only keeps the <em>drive</em> busy. Your Mac keeps its normal sleep settings, and when it wakes, SpinSteady checks your drives right away.</p>
       </div>
       <div class="card">
-        <div class="ic">✅</div>
-        <h3>It proves it's working</h3>
-        <p>SpinSteady watches every keep-alive and catches a stubborn drive that slips through and sleeps anyway — then offers a one-tap fix. Nothing else does this.</p>
+        <h3>It tells you if a drive slept anyway</h3>
+        <p>Every check is timed. If one takes as long as a spin-up, SpinSteady flags it, sends a notification, and suggests a fix, like a shorter interval or write mode.</p>
       </div>
       <div class="card">
-        <div class="ic">🪶</div>
         <h3>Gentle by default</h3>
-        <p>A read-only keep-alive adds zero write wear and works even on read-only volumes like Time Machine. One tap switches to write mode for the rare enclosure that needs it.</p>
+        <p>The default read mode adds no writes to your drive and works on read-only volumes like Time Machine backups. If your enclosure only stays awake with writes, switch that drive to write mode.</p>
       </div>
       <div class="card">
-        <div class="ic">🔒</div>
         <h3>Private by design</h3>
-        <p>No networking code at all. Nothing about you or your drives ever leaves your Mac. Nothing to collect, nothing to leak.</p>
+        <p>SpinSteady has no networking code and no analytics. Nothing about you or your drives leaves your Mac.</p>
       </div>
     </div>
   </div>
@@ -234,32 +230,43 @@
 <section class="soft" id="how">
   <div class="wrap">
     <div class="eyebrow">How it works</div>
-    <h2>Set it once. Forget it.</h2>
+    <h2>Set it up once.</h2>
     <div class="steps">
       <div class="step">
         <div class="n">1</div>
         <h3>Add your drive</h3>
-        <p>Pick any external drive from the menu bar. SpinSteady keeps one tiny hidden file on it — nothing else is touched.</p>
+        <p>Pick an external drive from the menu bar. SpinSteady keeps one tiny hidden file on it. Nothing else on the drive is touched.</p>
       </div>
       <div class="step">
         <div class="n">2</div>
-        <h3>It stays awake</h3>
-        <p>A gentle touch on a timer keeps the drive's idle timer from ever firing. Survives reboots, unplugs, renames, and sleep/wake.</p>
+        <h3>It stays ready</h3>
+        <p>A tiny read every 25 seconds (adjustable) keeps the drive's idle timer from running out. It keeps working through reboots, unplugging, renaming, and sleep and wake.</p>
       </div>
       <div class="step">
         <div class="n">3</div>
         <h3>You see it working</h3>
-        <p>A green status per drive, live check timing, and a heads-up if a drive ever sleeps anyway — with a one-tap fix.</p>
+        <p>A green status for each drive, the timing of the last check, a running count of checks, and a notification if a drive sleeps anyway.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="pricing">
+<section id="tested">
+  <div class="wrap">
+    <div class="eyebrow">How I tested it</div>
+    <h2>Tested on real drives, not just in theory.</h2>
+    <p class="lead">I built SpinSteady because my own external drives kept doing this to me for years. I tested it on the three USB hard drives on my desk: a WD easystore, a WD Elements, and a Seagate Expansion.</p>
+    <div class="callout">
+      A one-hour run at the default 25 second interval passed <b>144 of 144</b> checks with no spin-downs. When I let a drive fall asleep on purpose, SpinSteady flagged it (the check took 20 seconds, the time it took the drive to spin back up). A multi-day run across all three drives logged <b>9,185 checks with no failures</b>. That's three drives, not every drive out there. If yours behaves differently, email <a href="mailto:support@spinsteady.com">support@spinsteady.com</a> and I'll look into it.
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="pricing">
   <div class="wrap">
     <div class="eyebrow">Pricing</div>
     <h2>Free for one drive. One-time unlock for the rest.</h2>
-    <p class="lead">No subscription. Ever.</p>
+    <p class="lead">No subscription.</p>
     <div class="price-wrap">
       <div class="price">
         <span class="tag">Free</span>
@@ -268,7 +275,7 @@
           <li>Keep one external drive awake</li>
           <li>Spin-down detection &amp; alerts</li>
           <li>Read or write keep-alive modes</li>
-          <li>All future updates</li>
+          <li>Free updates</li>
         </ul>
       </div>
       <div class="price featured">
@@ -278,36 +285,36 @@
           <li>Everything in Free</li>
           <li>Keep <b>unlimited</b> drives awake</li>
           <li>No subscription, no renewal</li>
-          <li>All future updates included</li>
+          <li>Free updates</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="soft" id="faq">
+<section id="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2>Good questions.</h2>
 
     <details>
       <summary>Why does my drive keep spinning down even with macOS set to never sleep disks?</summary>
-      <p>Because most external enclosures ignore that setting. They run their own idle timer in the drive or the USB/Thunderbolt bridge firmware, and macOS has no supported way to change it. SpinSteady works around it by keeping the drive gently busy so its timer never reaches zero.</p>
+      <p>Because many external enclosures ignore that setting. They run their own idle timer in the drive or in the USB or Thunderbolt bridge firmware, and macOS has no supported way to change it. SpinSteady works around it by keeping the drive lightly busy so that timer doesn't run out.</p>
     </details>
 
     <details>
       <summary>Does this keep my whole Mac awake?</summary>
-      <p>No — and that's the point. SpinSteady keeps only the drives you choose awake. Your display sleeps, your Mac sleeps, your battery is unaffected.</p>
+      <p>No. SpinSteady only keeps the drives you choose busy. Your display and your Mac follow their normal sleep settings. While your Mac is asleep, nothing can touch the drives, so SpinSteady checks them as soon as it wakes. One honest note: a drive that keeps spinning uses a bit more power, which matters most for a bus-powered drive on a laptop running on battery.</p>
     </details>
 
     <details>
       <summary>What's the hidden ".spinsteady" folder on my drive?</summary>
-      <p>It's a single small folder holding one tiny keep-alive file — the thing SpinSteady touches on a timer. That's the entire footprint. Remove the drive from SpinSteady and you can delete it.</p>
+      <p>It's a single small folder holding one tiny file, the one SpinSteady reads on a timer. That's the entire footprint. If you remove the drive from SpinSteady, you can delete the folder.</p>
     </details>
 
     <details>
       <summary>Will this wear out my drive?</summary>
-      <p>By default SpinSteady uses a read-only keep-alive, which adds no write wear at all. Continuous gentle spinning is generally easier on a consumer drive than the repeated spin-up/spin-down cycles you're getting now. A write mode is available for the few enclosures that only respond to writes.</p>
+      <p>Read mode, the default, adds no writes. A drive that stays spinning does add running hours. Many people find that a fair trade against spinning up and down dozens of times a day, but it's your call, and you can turn SpinSteady off for any drive. Write mode, for enclosures that only stay awake with writes, writes a few bytes per check.</p>
     </details>
 
     <details>

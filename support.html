@@ -51,12 +51,12 @@
 
   <details>
     <summary>Does SpinSteady keep my whole Mac awake?</summary>
-    <p>No. It keeps only the drives you add awake. Your display and your Mac still sleep normally.</p>
+    <p>No. It only keeps the drives you add busy. Your display and your Mac follow their normal sleep settings, and SpinSteady checks your drives as soon as the Mac wakes.</p>
   </details>
 
   <details>
     <summary>Will keeping the drive awake damage it?</summary>
-    <p>The default read-only keep-alive adds no write wear. Continuous gentle spinning is generally gentler on a consumer drive than repeated spin-up/spin-down cycles. Use write mode only if your enclosure requires it.</p>
+    <p>Read mode, the default, adds no writes. A drive that stays spinning does add running hours. Many people find that a fair trade against spinning up and down dozens of times a day, but it's your call, and you can turn SpinSteady off for any drive. Use write mode only if your enclosure needs it.</p>
   </details>
 
   <details>
@@ -66,7 +66,7 @@
 
   <details>
     <summary>Which drives and Macs are supported?</summary>
-    <p>Any external USB or Thunderbolt drive on macOS 14 (Sonoma) or later. SpinSteady works with HDDs and SSDs; spin-down detection applies to spinning (or unknown-type) drives.</p>
+    <p>SpinSteady runs on macOS 14 (Sonoma) or later. I tested it on three USB hard drives: a WD easystore, a WD Elements, and a Seagate Expansion. It should work with any external hard drive that shows up in Finder as a normal volume. SSDs don't spin down, so they don't need it. If your drive doesn't stay awake, email me with the model and I'll look into it.</p>
   </details>
 
   <hr>
